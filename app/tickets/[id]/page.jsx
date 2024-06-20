@@ -1,8 +1,24 @@
-import React from 'react'
+import { notFound } from 'next/navigation'
+
+export const dynamicParams = true
+
+export const generateStaticParams = async () => {
+	const response = await fetch('http://localhost:4000/tickets')
+	const tickets = await response.json()
+
+	return tickets.map((ticket) => ({
+		id: ticket.id,
+	}))
+}
 
 const getTicket = async (id) => {
 	const response = await fetch(`http://localhost:4000/tickets/${id}`)
-	return response.json()
+
+	if (!response.ok) {
+		// If the response is not OK, return a 404
+		notFound()
+	}
+	return response.json() // Otherwise, return the ticket
 }
 
 const TicketDetails = async ({ params }) => {
