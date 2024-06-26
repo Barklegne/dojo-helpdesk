@@ -20,7 +20,7 @@ const TicketList = async () => {
 	return (
 		<>
 			{tickets.length === 0 ? (
-				<p className='items-center'>No tickets available</p>
+				<p className='items-center'>No tickets available...</p>
 			) : (
 				tickets.map((ticket) => (
 					<Link href={`/tickets/${ticket.id}`} key={ticket.id}>
